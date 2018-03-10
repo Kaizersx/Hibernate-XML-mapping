@@ -5,7 +5,12 @@ import org.hibernate.cfg.Configuration;
 
 /**
  * Created by vserdiuk on 2/7/17.
+ * Данный класс возвращает SessionFactory
+ * SessionFactory нужен для открытия сессии. Все операции с БД происходят в сессии.
+ *Извлечение , сохранение данных получают из сессии.
  */
+
+
 public class HibernateUtil {
 
     private static final SessionFactory sessionFactory = buildSessionFactory();
