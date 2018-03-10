@@ -5,7 +5,7 @@ import entity.Address;
 import entity.Employee;
 import entity.Project;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
+
 
 import java.sql.Date;
 import java.util.Calendar;

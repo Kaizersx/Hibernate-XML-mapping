@@ -1,7 +1,11 @@
 package bl;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+
+import java.util.Locale;
 
 /**
  * Created by vserdiuk on 2/7/17.
@@ -13,17 +17,26 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
-    private static final SessionFactory sessionFactory = buildSessionFactory();
+    private static SessionFactory sessionFactory=createSessionFactory();
+    private static ServiceRegistry serviceRegistry;
 
-    private static SessionFactory buildSessionFactory() {
+    public static SessionFactory createSessionFactory() {
         try {
-            return new Configuration().configure().buildSessionFactory();
+
+            Locale.setDefault(Locale.ENGLISH);
+            Configuration configuration = new Configuration();
+            configuration.configure();
+            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
+                    configuration.getProperties()).build();
+            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            return sessionFactory;
         }
+
         catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex);
         }
-    }
 
+    }
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
