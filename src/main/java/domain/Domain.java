@@ -44,6 +44,11 @@ public class Domain {
         Project project = new Project();
         project.setTitle("5678");
 
+        Set<Employee>employees= new HashSet<>();
+        employees.add(employee);
+        project.setEmployees(employees);
+
+
         Set<Project> projects = new HashSet<Project>();
         projects.add(project);
         employee.setProjects(projects);

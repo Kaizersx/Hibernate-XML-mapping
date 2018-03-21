@@ -1,22 +1,41 @@
 package entity;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
 
 /**
  * Created by vserdiuk on 2/4/17.
  */
+
+@Entity
+@Table(name="EMPLOYEE")
 public class Employee {
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="Empl_seq")
+    @SequenceGenerator(name="Empl_seq", sequenceName="EmplSeq",allocationSize=1)
     private Long id;
+
+    @Column(name = "FIRST_NAME")
     private String firstName;
+
+    @Column(name="LAST_NAME")
     private String lastName;
+
+    @Column (name = "BIRTHDAY")
     private Date birthday;
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name="EMPL_PROJ",
+            joinColumns = @JoinColumn(name="EMPLOYEE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PROJECT_ID")
+
+    )
     private Set<Project> projects;
 
     public Employee() {

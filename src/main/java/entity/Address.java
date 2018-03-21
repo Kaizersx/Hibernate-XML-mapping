@@ -1,14 +1,28 @@
 package entity;
 
-/**
- * Created by vserdiuk on 2/4/17.
- */
+import javax.persistence.*;
+
+
+
+@Entity
+@Table(name="ADDRESS")
 public class Address {
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="address_seq")
+    @SequenceGenerator(name="address_seq", sequenceName="adrsSeq", allocationSize=1)
     private Long id;
+
+    @Column(name="COUNTRY")
     private String country;
+
+    @Column(name="CITY")
     private String city;
+
+    @Column(name="STREET")
     private String street;
+
+    @Column(name="POST_CODE", length = 10)
     private String postCode;
 
     public Address() {
